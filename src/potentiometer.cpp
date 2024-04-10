@@ -14,5 +14,5 @@ int Potentiometer::getNumber()
 
 int Potentiometer::getReading()
 {
-  return analogRead(this->_pin);
+  return analogRead(_pin);
 }

@@ -18,6 +18,11 @@ public:
   Display(int tft_cs, int tft_dc);
 
   /**
+   * Inicializa e configura o display
+   */
+  void setup();
+
+  /**
   * Atualiza a tela de acordo com o número atualmente lido. Caso _screen = DONE, mostra a tela de conclusão
   */
   void updateScreen(int num);

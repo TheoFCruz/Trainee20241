@@ -7,6 +7,15 @@ Display::Display(int tft_cs, int tft_dc):
 
 }
 
+void Display::setup()
+{
+  _tft_instance.begin();
+  _tft_instance.setTextColor(ILI9341_WHITE);
+  _tft_instance.setTextSize(2);
+  _tft_instance.setRotation(1);
+  _tft_instance.fillScreen(ILI9341_BLACK);
+}
+
 void Display::updateScreen(int num)
 {
   switch(_screen)
