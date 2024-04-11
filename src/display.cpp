@@ -34,6 +34,8 @@ void Display::openVault() {_screen = DONE;}
 void Display::numberScreen(int num)
 {
   // TODO: implementar a tela de número
+  _tft_instance.setCursor(0,0);
+  _tft_instance.println("teste");
 }
 
 void Display::doneScreen()

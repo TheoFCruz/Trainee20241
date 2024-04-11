@@ -13,6 +13,8 @@ void Motor::setup()
 {
   pinMode(_step_pin, OUTPUT);
   pinMode(_dir_pin, OUTPUT);
+
+  digitalWrite(_dir_pin, HIGH);
 }
 
 void Motor::fullSpin()
