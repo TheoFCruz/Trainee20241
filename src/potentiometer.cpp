@@ -11,7 +11,7 @@ Potentiometer::Potentiometer(int pin, int max_value):
 
 int Potentiometer::getNumber()
 {
-
+  return 1;
 }
 
 int Potentiometer::getReading()

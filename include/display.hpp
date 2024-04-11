@@ -25,7 +25,7 @@ public:
   /**
   * Atualiza a tela de acordo com o número atualmente lido. Caso _screen = DONE, mostra a tela de conclusão
   */
-  void updateScreen(int num);
+  void updateScreen(int num, int* input, int length);
 
   /**
   * Apenas muda o valor de _screen para DONE, indicando a abertura do cofre
@@ -36,7 +36,7 @@ private:
   /**
   * Lógica da tela de número
   */
-  void numberScreen(int num);   
+  void numberScreen(int num, int* input, int length);   
 
   /**
   * Lógica da tela de conclusão
