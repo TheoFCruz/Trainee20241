@@ -21,8 +21,8 @@ Display display(TFT_CS, TFT_DC);
 
 // Senha definida e input atual
 #define PASSWORD_LEN 3
-#define PASSWORD {0,0,0};
-int input[3] = {-1, -1, -1};
+const int password[PASSWORD_LEN] {0,0,0};
+int input[PASSWORD_LEN] = {-1, -1, -1};
 int current_index = 0;
 
 // Variaveis para só atualizar a tela quando o número lido mudar
@@ -37,6 +37,8 @@ void setup() {
 
   motor.setup();
   display.setup();
+  
+  display.updateScreen(0, input, PASSWORD_LEN);
 }
 
 void loop() {
@@ -56,5 +58,29 @@ void loop() {
     delay(100);
   }
 
-  // TODO: lógica de conferir a senha
+  // Checagem se a senha está correta quando o indice chega a 3
+  if (current_index == PASSWORD_LEN)
+  {
+    bool correct_pswd = true; 
+    for (int i = 0; i < PASSWORD_LEN; i++)
+    {
+      if (password[i] != input[i])
+      {
+        correct_pswd = false;
+        break;
+      }
+    }
+
+    if (correct_pswd)
+    {
+      motor.fullSpin();
+
+      // TODO: Mais lógica de abertura do cofre
+    }
+
+    for (int j = 0; j < PASSWORD_LEN; j++) input[j] = -1;
+    current_index = 0;
+
+    display.updateScreen(current_number, input, PASSWORD_LEN);
+  }
 }
