@@ -33,6 +33,9 @@ int current_index = 0;
 int last_number = 0;
 int current_number = 0;
 
+// Guarda se o cofre está aberto ou não;
+bool is_open = false;
+
 void setup() {
   Serial.begin(115200);
   Serial.println("Hello, ESP32!");
@@ -49,6 +52,21 @@ void setup() {
 }
 
 void loop() {
+  // Lógica se o cofre está aberto
+  if (is_open)
+  {
+    if (digitalRead(BUTTON))
+    {
+      motor.close(); 
+
+      display.setScreenNumber(); 
+      display.updateScreen(current_number, input, PASSWORD_LEN); 
+
+      is_open = false;
+    }
+    return;
+  }
+
   // Atualiza a tela caso o número mude
   last_number = current_number;
   current_number = potentiometer.getNumber();
@@ -81,9 +99,9 @@ void loop() {
     if (correct_pswd)
     {
       digitalWrite(GREEN_LED, HIGH);
-      motor.fullSpin();
-
-      // TODO: Mais lógica de abertura do cofre
+      motor.open();
+      display.setScreenOpen();
+      is_open = true;
     }
     else
     {

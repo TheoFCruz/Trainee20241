@@ -17,7 +17,7 @@ void Motor::setup()
   digitalWrite(_dir_pin, HIGH);
 }
 
-void Motor::fullSpin()
+void Motor::open()
 {
   for (int i = 0; i < SPIN_STEPS; i++)
   {
@@ -25,4 +25,16 @@ void Motor::fullSpin()
     digitalWrite(_step_pin, HIGH);
     delay(MOTOR_DELAY);
   }
+}
+
+void Motor::close()
+{
+  digitalWrite(_dir_pin, LOW);
+  for (int i = 0; i < SPIN_STEPS; i++)
+  {
+    digitalWrite(_step_pin, LOW);
+    digitalWrite(_step_pin, HIGH);
+    delay(MOTOR_DELAY);
+  }
+  digitalWrite(_dir_pin, HIGH);
 }

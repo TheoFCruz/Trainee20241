@@ -17,7 +17,12 @@ public:
   /**
   * Da um giro completo no motor
   */
-  void fullSpin();
+  void open();
+
+  /**
+  * Da um giro completo no motor no sentido contrário
+  */
+  void close();
 
 private:
   int _step_pin;

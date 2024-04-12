@@ -23,13 +23,14 @@ void Display::updateScreen(int num, int* input, int length)
     case NUMBER:
       numberScreen(num, input, length);
       break;
-    case DONE:
-      doneScreen();
+    case OPEN:
+      openScreen();
       break;
   }
 }
 
-void Display::openVault() {_screen = DONE;}
+void Display::setScreenOpen() {_screen = OPEN;}
+void Display::setScreenNumber() {_screen = NUMBER;}
 
 void Display::numberScreen(int num, int* input, int length)
 {
@@ -52,7 +53,11 @@ void Display::numberScreen(int num, int* input, int length)
   _tft_instance.setTextSize(2);
 }
 
-void Display::doneScreen()
+void Display::openScreen()
 {
-  // TODO: implementar a tela de conclusão
+  _tft_instance.fillScreen(ILI9341_BLACK);
+
+  _tft_instance.setCursor(10, 10);
+  _tft_instance.println("Cofre aberto.");
+  _tft_instance.println("Aperte o botao para fechar.");
 }

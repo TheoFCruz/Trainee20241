@@ -6,7 +6,7 @@
 enum screen 
 {
   NUMBER,
-  DONE
+  OPEN
 };
 
 class Display
@@ -28,9 +28,14 @@ public:
   void updateScreen(int num, int* input, int length);
 
   /**
-  * Apenas muda o valor de _screen para DONE, indicando a abertura do cofre
+  * Apenas muda o valor de _screen para OPEN, indicando a abertura do cofre
   */
-  void openVault();
+  void setScreenOpen();
+
+  /**
+  * Apenas muda o valor de _screen para NUMBER, indicando a abertura do cofre
+  */
+  void setScreenNumber();
 
 private:
   /**
@@ -41,7 +46,7 @@ private:
   /**
   * Lógica da tela de conclusão
   */
-  void doneScreen();   
+  void openScreen();   
 
   screen _screen; 
   Adafruit_ILI9341 _tft_instance;
