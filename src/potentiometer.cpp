@@ -11,7 +11,9 @@ Potentiometer::Potentiometer(int pin, int max_value):
 
 int Potentiometer::getNumber()
 {
-  return 1;
+  float interval = (float)_max_value / 10;
+
+  return analogRead(_pin)/interval;
 }
 
 int Potentiometer::getReading()

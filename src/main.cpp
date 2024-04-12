@@ -1,5 +1,6 @@
 #include <Arduino.h>
 
+#include "esp32-hal-gpio.h"
 #include "potentiometer.hpp"
 #include "motor.hpp"
 #include "display.hpp"
@@ -14,6 +15,9 @@
 #define MOTOR_DIR 33
 
 #define BUTTON 35
+
+#define GREEN_LED 25
+#define RED_LED 27
 
 Potentiometer potentiometer(POT, POT_MAX);
 Motor motor(MOTOR_STEP, MOTOR_DIR);
@@ -33,7 +37,10 @@ void setup() {
   Serial.begin(115200);
   Serial.println("Hello, ESP32!");
 
-  pinMode(BUTTON, INPUT_PULLUP);
+  pinMode(BUTTON, INPUT);
+
+  pinMode(GREEN_LED, OUTPUT);
+  pinMode(RED_LED, OUTPUT);
 
   motor.setup();
   display.setup();
@@ -48,7 +55,7 @@ void loop() {
   if (current_number != last_number) display.updateScreen(current_number, input, PASSWORD_LEN);
 
   // Adiciona o número atual ao input e aumenta o índice
-  if (!digitalRead(BUTTON) && current_index < 3)
+  if (digitalRead(BUTTON) && current_index < 3)
   {
     input[current_index] = current_number; 
     current_index++;
@@ -73,14 +80,21 @@ void loop() {
 
     if (correct_pswd)
     {
+      digitalWrite(GREEN_LED, HIGH);
       motor.fullSpin();
 
       // TODO: Mais lógica de abertura do cofre
+    }
+    else
+    {
+      digitalWrite(RED_LED, HIGH);
     }
 
     for (int j = 0; j < PASSWORD_LEN; j++) input[j] = -1;
     current_index = 0;
 
     display.updateScreen(current_number, input, PASSWORD_LEN);
+    digitalWrite(GREEN_LED, LOW);
+    digitalWrite(RED_LED, LOW);
   }
 }
