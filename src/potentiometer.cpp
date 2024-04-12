@@ -20,3 +20,4 @@ int Potentiometer::getReading()
 {
   return analogRead(_pin);
 }
+

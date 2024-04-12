@@ -61,3 +61,4 @@ void Display::openScreen()
   _tft_instance.println("Cofre aberto.");
   _tft_instance.println("Aperte o botao para fechar.");
 }
+

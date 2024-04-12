@@ -38,3 +38,4 @@ void Motor::close()
   }
   digitalWrite(_dir_pin, HIGH);
 }
+
