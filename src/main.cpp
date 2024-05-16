@@ -1,6 +1,5 @@
 #include <Arduino.h>
 
-#include "esp32-hal-gpio.h"
 #include "potentiometer.hpp"
 #include "motor.hpp"
 #include "display.hpp"
@@ -11,8 +10,10 @@
 #define TFT_CS 5
 #define TFT_DC 21
 
-#define MOTOR_STEP 32
-#define MOTOR_DIR 33
+#define MOTOR_PWM 32
+
+// #define MOTOR_STEP 32
+// #define MOTOR_DIR 33
 
 #define BUTTON 35
 
@@ -20,8 +21,8 @@
 #define RED_LED 27
 
 Potentiometer potentiometer(POT, POT_MAX);
-Motor motor(MOTOR_STEP, MOTOR_DIR);
 Display display(TFT_CS, TFT_DC);
+Motor* motor;
 
 // Senha definida e input atual
 #define PASSWORD_LEN 3
@@ -45,7 +46,10 @@ void setup() {
   pinMode(GREEN_LED, OUTPUT);
   pinMode(RED_LED, OUTPUT);
 
-  motor.setup();
+  // motor = new StepperMotor(MOTOR_STEP, MOTOR_DIR);
+  motor = new ServoMotor(MOTOR_PWM);
+
+  motor->setup();
   display.setup();
   
   display.updateScreen(0, input, PASSWORD_LEN);
@@ -57,7 +61,7 @@ void loop() {
   {
     if (digitalRead(BUTTON))
     {
-      motor.close(); 
+      motor->close(); 
 
       display.setScreenNumber(); 
       display.updateScreen(current_number, input, PASSWORD_LEN); 
@@ -99,7 +103,7 @@ void loop() {
     if (correct_pswd)
     {
       digitalWrite(GREEN_LED, HIGH);
-      motor.open();
+      motor->open();
       display.setScreenOpen();
       is_open = true;
     }
